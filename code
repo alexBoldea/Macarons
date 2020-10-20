@@ -1,0 +1,30 @@
+import PySimpleGUI as sg
+
+sg.theme('DarkRed')
+
+layout = [ [sg.Text('Reference qty: '), sg.InputText(default_text='0', size=(5,1)), sg.Text('    grams')],
+           [sg.Text('Ingredient no.2:'), sg.Text(size=(6,1), key='-2-'), sg.Text('grams')],
+           [sg.Text('Ingredient no.3:'), sg.Text(size=(6,1), key='-3-'), sg.Text('grams')],
+           [sg.Text('Ingredient no.4:'), sg.Text(size=(6,1), key='-4-'), sg.Text('grams')],
+           [sg.Text('Ingredient no.5:'), sg.Text(size=(5,1), key='-5-'), sg.Text('  grams')]]
+
+window = sg.Window('Macarons', layout, size=(260,150))
+
+while True:
+    event, values = window.read(timeout='100')
+    if event == sg.WIN_CLOSED:
+        break
+    cant = ''.join(list(values[0]))
+    try:
+        window.refresh()
+        disp_val1 = 0 if float(cant)==0 else float(cant)*1.363
+        disp_val2 = 0 if float(cant)==0 else float(cant)*0.3411
+        # disp values are OK up to this point
+        window['-2-'].update(str(disp_val1))
+        window['-3-'].update(str(disp_val1))
+        window['-4-'].update(str(disp_val1))
+        window['-5-'].update(str(disp_val2))
+    except:
+        pass
+
+window.close()
